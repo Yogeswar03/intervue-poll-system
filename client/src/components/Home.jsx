@@ -1,4 +1,4 @@
-// src/pages/Home.jsx
+
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -16,7 +16,6 @@ const Home = () => {
 
   return (
     <div className="min-h-screen flex flex-col justify-center items-center bg-[#F2F2F2] px-4 py-8">
-      {/* Logo Section */}
       <div className="flex flex-col sm:flex-row items-center justify-center gap-2 mb-6 px-4 py-2 rounded-full bg-gradient-to-r from-[#7565D9] to-[#4D0ACD]">
         <svg
           width="15"
