@@ -1,9 +1,8 @@
-// src/store/teacherSlice.js
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   question: "",
-  options: [], // [{ text: "Option A", isCorrect: true }]
+  options: [],
   timeLimit: 60,
 };
 
@@ -23,7 +22,7 @@ const teacherSlice = createSlice({
       state.timeLimit =
         typeof timeLimit === "number" && timeLimit > 0 ? timeLimit : 60;
     },
-    resetPoll: () => ({ ...initialState }), // ✅ fresh copy
+    resetPoll: () => ({ ...initialState }), 
   },
 });
 
