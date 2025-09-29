@@ -1,13 +1,12 @@
-// src/store/pollSlice.js
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   currentPoll: null,
-  answers: {}, // { clientId: optionIndex }
-  results: [], // votes count
-  status: "idle", // "idle" | "active" | "ended"
+  answers: {}, 
+  results: [], 
+  status: "idle", 
   history: [],
-  timeoutId: null, // track poll timeout
+  timeoutId: null,
 };
 
 const pollSlice = createSlice({
@@ -15,15 +14,12 @@ const pollSlice = createSlice({
   initialState,
   reducers: {
     setPoll(state, action) {
-      // 🚨 Prevent new poll if one is already running
       if (state.status === "active") return;
 
       const { question, options, timeLimit } = action.payload;
       if (!question?.trim() || !Array.isArray(options) || options.length === 0) {
         return;
       }
-
-      // Normalize options
       const cleanedOptions = options
         .map((opt) => {
           if (typeof opt === "string") {
@@ -57,7 +53,6 @@ const pollSlice = createSlice({
         return;
       }
 
-      // handle re-vote (remove old vote)
       const prevAnswer = state.answers[clientId];
       if (prevAnswer !== undefined) {
         state.results[prevAnswer] = Math.max(
@@ -113,8 +108,6 @@ const pollSlice = createSlice({
     resetPoll: () => ({ ...initialState }),
   },
 });
-
-// ✅ Selector for UI percentages
 export const selectPollPercentages = (state) => {
   const totalVotes = state.poll.results.reduce((a, b) => a + b, 0);
   return state.poll.results.map((count) =>
@@ -133,13 +126,9 @@ export const {
 } = pollSlice.actions;
 
 export default pollSlice.reducer;
-
-// ✅ Thunk for starting poll with timeout auto-end
 export const startPollWithTimeout = (pollData) => (dispatch) => {
-  // Start poll
-  dispatch(setPoll(pollData));
 
-  // Auto-end after timeLimit
+  dispatch(setPoll(pollData));
   const duration = pollData.timeLimit || 60;
   const timeout = setTimeout(() => {
     dispatch(endPoll());
