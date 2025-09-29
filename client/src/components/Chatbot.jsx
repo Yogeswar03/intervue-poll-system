@@ -1,4 +1,3 @@
-// src/components/Chatbot.jsx
 import React, { useState, useRef, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -23,7 +22,7 @@ const Chatbot = ({ isTeacher = false, collapsed = false }) => {
   const [isAtBottom, setIsAtBottom] = useState(true);
   const [newMessageAlert, setNewMessageAlert] = useState(false);
 
-  // ✅ Socket listeners
+  
   useEffect(() => {
     const handleChatMessage = ({ sender, text }) => {
       dispatch(addMessageLocal({ id: Date.now(), sender, text }));
@@ -49,7 +48,6 @@ const Chatbot = ({ isTeacher = false, collapsed = false }) => {
     };
   }, [dispatch]);
 
-  // ✅ Scroll detection
   useEffect(() => {
     const container = messagesContainerRef.current;
     if (!container) return;
@@ -70,7 +68,7 @@ const Chatbot = ({ isTeacher = false, collapsed = false }) => {
     return () => container.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // ✅ Auto-scroll when at bottom, else show "↓ New"
+
   useEffect(() => {
     const container = messagesContainerRef.current;
     if (!container) return;
